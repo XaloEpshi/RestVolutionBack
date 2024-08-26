@@ -42,7 +42,10 @@ router.post("/send-reservation", (req, res) => {
 // Ruta para obtener todos los platos
 router.get("/allPlatos", platosController.obtenerPlatos);
 // Ruta para obtener platos activos y destacados
-router.get('/destacados-activos', platosController.obtenerPlatosDestacadosActivos);
+router.get(
+  "/destacados-activos",
+  platosController.obtenerPlatosDestacadosActivos
+);
 // Ruta para agregar un nuevo plato
 router.post("/addPlatos", platosController.agregarPlato);
 // Ruta para actualizar un plato existente por su ID
@@ -57,7 +60,6 @@ router.get("/inPlatos", platosController.obtenerPlatosInactivos);
 router.put("/activatePlato/:id", platosController.activarPlato);
 
 module.exports = router; // Exporta el router con las rutas definidas
-
 
 /*/Configuracion Mercado Pago
 mercadopago.configure({

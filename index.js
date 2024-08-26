@@ -3,7 +3,7 @@ const cors = require("cors");
 const path = require("path");
 const restaurantRoutes = require("./routes/restaurant.routes");
 const authRoutes = require("./routes/auth.routes");
-const adminRoutes = require('./routes/admin.routes');
+const adminRoutes = require("./routes/admin.routes");
 require("dotenv").config();
 const morgan = require("morgan");
 
@@ -15,11 +15,12 @@ app.use(morgan("combined")); // 'combined' es un formato predefinido
 // Configuración de CORS
 app.use(
   cors({
-    origin: "http://localhost:3000", // Cambia esto por la URL de tu frontend
+    origin: "http://localhost:3000",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 
 // Middlewares
 app.use(express.urlencoded({ extended: true }));
@@ -34,7 +35,7 @@ app.use((err, req, res, next) => {
 // Rutas
 app.use("/api", restaurantRoutes);
 app.use("/api/auth", authRoutes);
-app.use('/api/admin', adminRoutes);
+app.use("/api/admin", adminRoutes);
 
 // Archivos estáticos
 app.use("/upload", express.static(path.join(__dirname, "upload")));
