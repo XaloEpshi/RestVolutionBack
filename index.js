@@ -15,11 +15,7 @@ app.use(morgan("combined")); // 'combined' es un formato predefinido
 // Configuración de CORS
 app.use(
   cors({
-    origin: [
-      "https://restvoluciongon.web.app", // Dominio principal de Firebase
-      "https://restvoluciongon.firebaseapp.com", // Dominio alternativo de Firebase
-      "https://rest-volution-all.vercel.app",
-    ], // Dominio de Vercel],
+    origin: "http://localhost:3000",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
