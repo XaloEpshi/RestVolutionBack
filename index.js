@@ -12,10 +12,22 @@ const app = express();
 // Configuración de morgan para logs de solicitudes HTTP
 app.use(morgan("combined")); // 'combined' es un formato predefinido
 
+// Lista de orígenes permitidos
+const allowedOrigins = [
+  "https://front-rest-volution.vercel.app",
+  "http://localhost:3000"
+];
+
 // Configuración de CORS
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: function(origin, callback) {
+      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
