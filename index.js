@@ -15,11 +15,12 @@ app.use(morgan("combined")); // 'combined' es un formato predefinido
 // Configuración de CORS
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://restvolucionfront.vercel.app", // URL de tu frontend desplegado
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 
 // Middlewares
 app.use(express.urlencoded({ extended: true }));
