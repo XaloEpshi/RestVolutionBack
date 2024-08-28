@@ -15,7 +15,7 @@ app.use(morgan("combined")); // 'combined' es un formato predefinido
 // Configuración de CORS
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.FRONTEND_URL || "http://localhost:3000", // Asegúrate de que la URL esté configurada correctamente
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
@@ -39,10 +39,5 @@ app.use("/api/admin", adminRoutes);
 // Archivos estáticos
 app.use("/upload", express.static(path.join(__dirname, "upload")));
 
-// Puerto del servidor
-const PORT = process.env.PORT || 3001;
-
-// Iniciar el servidor
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en el puerto ${PORT}`);
-});
+// Exporta la aplicación para que Vercel la maneje
+module.exports = app;
