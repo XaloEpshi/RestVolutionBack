@@ -4,12 +4,9 @@
   "description": "ProyectoTesis",
   "main": "index.js",
   "scripts": {
-  "start": "react-scripts start",
-  "build": "react-scripts build",
-  "test": "react-scripts test",
-  "eject": "react-scripts eject"
-}
-,
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "author": "GonzaloM",
   "license": "ISC",
   "dependencies": {
