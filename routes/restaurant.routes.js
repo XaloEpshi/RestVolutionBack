@@ -9,24 +9,23 @@ require("dotenv").config();
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "gonzalo.mellao.m@gmail.com",
-    pass: "jstszorcbhrkezao",
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
 });
+
 
 // Ruta para enviar la reserva
 router.post("/send-reservation", (req, res) => {
   const { name, email, phone, event, date, message } = req.body;
 
-  // Definir el contenido del cuerpo para el correo electrónico que deseas enviar
   const mailOptions = {
     from: email,
-    to: "gonzalo.mellao.m@gmail.com", // Cambia esto al correo electrónico del restaurante
+    to: "gonzalo.mellao.m@gmail.com",
     subject: `Reserva de ${event} para ${name}`,
     text: `Nombre: ${name}\nCorreo Electrónico: ${email}\nTeléfono: ${phone}\nTipo de Evento: ${event}\nFecha de la Reserva: ${date}\nMensaje: ${message}`,
   };
 
-  // Envía el correo electrónico utilizando el método sendMail del objeto transporter
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.log("Error al enviar el correo:", error);
@@ -37,6 +36,7 @@ router.post("/send-reservation", (req, res) => {
     }
   });
 });
+
 
 // Rutas para platos accesibles solo por administradores
 // Ruta para obtener todos los platos
