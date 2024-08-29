@@ -1,6 +1,6 @@
 const mysqlPool = require("../mysqlConfig");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 require("dotenv").config();
 
 const secret = process.env.SECRET_KEY;
