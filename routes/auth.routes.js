@@ -8,4 +8,5 @@ router.post('/registerCliente', authController.registrarCliente);
 // Ruta para hacer login de un cliente
 router.post('/loginCliente', authController.loginCliente);
 
+
 module.exports = router;

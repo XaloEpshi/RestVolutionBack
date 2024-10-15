@@ -39,6 +39,7 @@ function verifyAdmin(req, res, next) {
   next();
 }
 
+
 // Exporta los middlewares para que puedan ser usados en otras partes de la aplicación
 module.exports = { verifyToken, verifyAdmin };
 

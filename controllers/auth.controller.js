@@ -44,48 +44,51 @@ exports.registrarCliente = async (req, res) => {
 
 // Función para iniciar sesión como cliente
 exports.loginCliente = async (req, res) => {
-  // Extrae los datos del cuerpo de la solicitud
   const { correo, contraseña } = req.body;
 
-  // Verifica que el correo y la contraseña estén presentes
   if (!correo || !contraseña) {
     return res.status(400).json({ error: "Correo y contraseña son requeridos" });
   }
 
-  // Consulta SQL para buscar al cliente por correo electrónico
   const query = "SELECT * FROM clientes WHERE correo = ?";
 
   try {
-    // Busca al cliente en la base de datos
     const [results] = await mysqlPool.promise().query(query, [correo]);
 
     if (results.length === 0) {
-      // Responde con un error si el cliente no existe
       return res.status(404).json({ error: "Cliente no encontrado" });
     }
 
     const cliente = results[0];
-    // Compara la contraseña proporcionada con la almacenada en la base de datos
     const passwordIsValid = bcrypt.compareSync(contraseña, cliente.contraseña);
 
     if (!passwordIsValid) {
-      // Responde con un error si la contraseña es incorrecta
       return res.status(401).json({ error: "Contraseña incorrecta" });
     }
 
-    // Genera un token JWT si las credenciales son válidas
-    const token = jwt.sign({ id: cliente.idCliente, role: 'client' }, secret, {
-      expiresIn: "24h", // El token expirará en 24 horas
-    });
+    // Genera un token JWT
+    const token = jwt.sign(
+      { id: cliente.idCliente, role: 'client' },
+      secret,
+      { expiresIn: "24h" }
+    );
 
-    // Responde con el token JWT y un mensaje de éxito
-    res.status(200).json({ message: "Inicio de sesión exitoso", token });
+    // Responde con el token JWT y el nombre del cliente
+    res.status(200).json({ 
+      message: "Inicio de sesión exitoso", 
+      token, 
+      user: {
+        id: cliente.idCliente,
+        name: cliente.nombre,
+        email: cliente.correo
+      }
+    });
   } catch (error) {
-    // Maneja errores y responde con un mensaje de error
     console.error("Error al buscar el cliente:", error);
     res.status(500).json({ error: "Error al buscar el cliente" });
   }
 };
+
 
 // Crear una nueva promocion
 exports.crearPromocion = (req, res) => {
